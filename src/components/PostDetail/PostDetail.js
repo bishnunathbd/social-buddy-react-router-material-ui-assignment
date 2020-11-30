@@ -6,7 +6,7 @@ import Comment from '../Comment/Comment';
 const PostDetail = () => {
   let { postId } = useParams();
 
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
