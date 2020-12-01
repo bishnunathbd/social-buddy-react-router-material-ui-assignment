@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Comment = (props) => {
   const { name, body, email, id } = props.comment;
-  const profileImage = `https://randomuser.me/api/portraits/thumb/men/${id}.jpg`
+  
+  const [randomUser, setRandomUser] = useState({});
+
+  useEffect(() => { 
+    // random user
+    fetch('https://randomuser.me/api/')
+    .then(res => res.json())
+    .then(data => setRandomUser(data.results[0]))
+  }, [])
 
   const singleCommentStyle = {
     display: 'flex',
@@ -16,7 +24,8 @@ const Comment = (props) => {
   return (
     <div style={singleCommentStyle}>
       <div>
-        <img src={profileImage} style={{borderRadius: '50%'}} alt="" />
+        <img src={randomUser.picture && randomUser.picture.medium} style={{ borderRadius: '50%' }} alt="" />
+        {/* src={randomUser.picture?.medium} */}
       </div>
       <div>
         <h4>{name}</h4>

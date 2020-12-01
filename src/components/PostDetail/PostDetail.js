@@ -6,20 +6,21 @@ import Comment from '../Comment/Comment';
 const PostDetail = () => {
   let { postId } = useParams();
 
-  const [post, setPost] = useState({});
+  const [singlePost, setSinglePost] = useState({});
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    // const url = 
+    // single post api
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
       .then(res => res.json())
-      .then(data => setPost(data));
-  }, [])
+      .then(data => setSinglePost(data));
 
-  useEffect(() => {
+    // comments
     fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
       .then(res => res.json())
       .then(data => setComments(data))
+
+    
   }, [])
 
   const singlePostStyle = {
@@ -34,8 +35,8 @@ const PostDetail = () => {
   return (
     <div>
       <div style={singlePostStyle}>
-        <h2>{post.title}</h2>
-        <p>{post.body}</p>
+        <h2>{singlePost.title}</h2>
+        <p>{singlePost.body}</p>
       </div>
       {
         comments.map(comment => <Comment comment={comment}></Comment>)
